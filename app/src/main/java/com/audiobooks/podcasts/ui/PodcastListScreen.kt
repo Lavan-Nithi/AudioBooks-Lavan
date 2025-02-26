@@ -1,9 +1,13 @@
 package com.audiobooks.podcasts.ui
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.audiobooks.podcasts.model.Podcast
@@ -15,16 +19,26 @@ fun PodcastListScreen(onShowDetails: (podcast: Podcast) -> Unit) {
     // TODO - Modify this file as needed
     // TODO - Coil dependency was added as the image loader for the podcast image - feel free to use any other image loader
     val viewModel: PodcastListViewModel = viewModel()
+    val best by viewModel.podcasts.collectAsState()
 
-    PodcastListUI(
-        onShowDetails = onShowDetails
-    )
+    LaunchedEffect(Unit) {
+        viewModel.fetchPodcasts()
+    }
+    if (best.isNotEmpty()){
+        PodcastListUI(
+            onShowDetails = onShowDetails,
+            podcasts = best
+        )
+    }
+
+
 
 }
 
 @Composable
 private fun PodcastListUI(
-    onShowDetails: (podcast: Podcast) -> Unit
+    onShowDetails: (podcast: Podcast) -> Unit,
+    podcasts: List<Podcast>
 ) {
     // TODO - Example UI layout - Modify to implement the requested UI
     Column {
@@ -32,13 +46,13 @@ private fun PodcastListUI(
         Button(
             onClick = {
                 onShowDetails(
-                    // Example data
                     Podcast(
                         title = "Example Podcast Title",
                         description="The Ed Mylett Show showcases the greatest peak-performers across all industries in one place",
                         id="abc",
                         image="https://cdn-images-3.listennotes.com/podcasts/the-ed-mylett-show-ed-mylett-cumulus-guxpvEVnHTJ-PEUIT9RBhZD.1400x1400.jpg",
-                        publisher="Podcast Publisher"
+                        publisher="Podcast Publisher",
+                        favourite = false,
                     )
                 )
             }
@@ -53,7 +67,8 @@ private fun PodcastListUI(
 private fun PodcastListUIPreview() {
     PodcastsTheme {
         PodcastListUI(
-            onShowDetails = {}
+            onShowDetails = {},
+            podcasts = emptyList()
         )
     }
 }

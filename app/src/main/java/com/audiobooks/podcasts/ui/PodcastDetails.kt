@@ -22,7 +22,8 @@ private fun PodcastDetailsScreenPreview() {
                 description="The Ed Mylett Show showcases the greatest peak-performers across all industries in one place",
                 id="abc",
                 image="https://cdn-images-3.listennotes.com/podcasts/the-ed-mylett-show-ed-mylett-cumulus-guxpvEVnHTJ-PEUIT9RBhZD.1400x1400.jpg",
-                publisher="Podcast Publisher"
+                publisher="Podcast Publisher",
+                favourite = false
             )
         )
     }
