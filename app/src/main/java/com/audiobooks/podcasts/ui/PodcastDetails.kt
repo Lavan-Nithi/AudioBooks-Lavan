@@ -41,7 +41,7 @@ fun PodcastDetailsScreen(podcast: Podcast, onBack: () -> Unit) {
         Text(text = podcast.publisher, color = Color.Gray, modifier = Modifier.padding(8.dp))
         AsyncImage(model = podcast.image, contentDescription = podcast.title, modifier = Modifier.height(200.dp))
         Button(onClick = {isFavourited = !isFavourited}){
-            Text(if (isFavourited) "Favouited" else "Favourite")
+            Text(if (isFavourited) "Favourited" else "Favourite")
         }
         Text(text = podcast.description, fontSize = 12.sp, color = Color.DarkGray)
     }
