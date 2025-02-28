@@ -10,8 +10,6 @@ import kotlinx.coroutines.launch
 
 class PodcastListViewModel : ViewModel() {
     private val repository = PodcastRepository()
-    // TODO - Make the API call using repository.getPodcasts() and update the UI
-
     private val _podcasts = MutableStateFlow<List<Podcast>>(emptyList())
     val podcasts: StateFlow<List<Podcast>> get() = _podcasts
 
@@ -27,11 +25,17 @@ class PodcastListViewModel : ViewModel() {
 
     }
     fun fetchPodcasts(){
+        // Loading state indicates that the podcasts are currently being fetched
         _isLoading.value = true
+        // Coroutine allows for asynchronous execution when the podcasts are being fetched
+        // We do this so that we don't freeze the UI
         viewModelScope.launch {
             val podcast = repository.getPodcasts()
+            // onSuccess we populate the podcasts field with the fetched values
             podcast.onSuccess { podcastList -> _podcasts.value = podcastList
-            _errorMessage.value = ""}.onFailure { e -> _errorMessage.value = e.message ?: "Unknown Error Here"}
+                // onFailure sets the error message to the one we receive from the API or Unknown Error if error message does not exist
+                _errorMessage.value = ""}.onFailure { e -> _errorMessage.value = e.message ?: "Unknown Error Here"}
+            // Loading state is now false as we should have received either the lists of podcasts onSuccess or and error message if onFailure
             _isLoading.value = false
         }
     }

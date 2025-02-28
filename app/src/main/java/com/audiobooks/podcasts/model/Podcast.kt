@@ -9,5 +9,5 @@ data class Podcast(
     val description: String,
     val image: String,
     val publisher: String,
-    val favourite: Boolean,
+    val favourite: Boolean, // new favourite field
 )

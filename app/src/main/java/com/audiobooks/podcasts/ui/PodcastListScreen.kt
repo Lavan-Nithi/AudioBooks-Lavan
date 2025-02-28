@@ -33,18 +33,19 @@ import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 
 @Composable
 fun PodcastListScreen(onShowDetails: (podcast: Podcast) -> Unit) {
-    // TODO - Implement the ViewModel to fetch the list of podcasts and update the UI
-    // TODO - Modify this file as needed
-    // TODO - Coil dependency was added as the image loader for the podcast image - feel free to use any other image loader
     val viewModel: PodcastListViewModel = viewModel()
-    val best by viewModel.podcasts.collectAsState()
+    val podcasts by viewModel.podcasts.collectAsState()
+    // This fetches the podcasts from the API request
     LaunchedEffect(Unit) {
         viewModel.fetchPodcasts()
     }
-    if (best.isNotEmpty()){
+    // Only displays PodcastListUI if the fetch is successful
+    // Can add a loading state to inform the users that the podcasts are still being fetched
+    // Can add an error state for failed fetches such as no internet connection
+    if (podcasts.isNotEmpty()){
         PodcastListUI(
             onShowDetails = onShowDetails,
-            podcasts = best
+            podcasts = podcasts
         )
     }
 
@@ -57,15 +58,15 @@ private fun PodcastListUI(
     onShowDetails: (podcast: Podcast) -> Unit,
     podcasts: List<Podcast>
 ) {
-    // TODO - Example UI layout - Modify to implement the requested UI
     Column {
         Image(painter = painterResource(R.drawable.audiobooks), contentDescription = "Audiobooks.com", Modifier.fillMaxWidth(), alignment = Alignment.Center)
-
         Text(text = "Podcasts", fontWeight = FontWeight.Bold, fontSize = 30.sp, modifier = Modifier.padding(10.dp))
         LazyColumn {
            items(podcasts){ podcast ->
-                PodcastRow(podcast = podcast, onShowDetails = onShowDetails)
-                HorizontalDivider(color = Color.LightGray, modifier = Modifier.padding(start = 16.dp))
+               // Each podcast will be using PodcastRow Composable
+               // This keeps the composable reusable
+               PodcastRow(podcast = podcast, onShowDetails = onShowDetails)
+               HorizontalDivider(color = Color.LightGray, modifier = Modifier.padding(start = 16.dp))
 
             }
         }
@@ -85,6 +86,7 @@ fun PodcastRow(podcast: Podcast, onShowDetails: (podcast: Podcast) -> Unit){
         Column(modifier = Modifier.padding(8.dp)){
             Text(text = podcast.title, fontWeight = FontWeight.Bold)
             Text(text = podcast.publisher, color = Color.Gray)
+            // TO DO: if onFavourited is implemented the red text favourited will be rendered for podcast that are favourited
             if (podcast.favourite){
                 Text(text = "Favourited", color = Color.Red)
             }

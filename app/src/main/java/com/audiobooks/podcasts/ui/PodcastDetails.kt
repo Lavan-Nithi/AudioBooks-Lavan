@@ -39,7 +39,7 @@ import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 
 @Composable
 fun PodcastDetailsScreen(podcast: Podcast, onBack: () -> Unit) {
-    // TODO Implement the requested UI
+    // State for favourited field
     var isFavourited by remember { mutableStateOf(podcast.favourite)}
     Column(
         modifier = Modifier.padding(12.dp).verticalScroll(rememberScrollState()),
@@ -52,10 +52,12 @@ fun PodcastDetailsScreen(podcast: Podcast, onBack: () -> Unit) {
         Text(text = podcast.title, fontSize = 24.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(top = 16.dp), textAlign = TextAlign.Center)
         Text(text = podcast.publisher, color = Color.Gray, modifier = Modifier.padding(bottom = 8.dp), textAlign = TextAlign.Center)
         AsyncImage(model = podcast.image, contentDescription = podcast.title, modifier = Modifier.height(225.dp).clip(RoundedCornerShape(16.dp)))
+        // Conditional rendering logic to change colour of button based on favourited flag
         Button(onClick = {isFavourited = !isFavourited}, shape = RectangleShape, modifier = Modifier.padding(top = 12.dp).clip(
             RoundedCornerShape(16.dp)), colors = ButtonColors(containerColor = if(isFavourited) Color.Gray else Color(0xFFFF525D), contentColor = if(isFavourited) Color.Black else Color.White, disabledContentColor = Color.White, disabledContainerColor = Color.Red)
         ){
             Text(if (isFavourited) "Favourited" else "Favourite")
+            // Conditional rendering logic to render checkmark icon based on favourited flag
             if (isFavourited) {
             Icon(
                 Icons.Filled.Done,
