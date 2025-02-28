@@ -34,7 +34,6 @@ fun PodcastListScreen(onShowDetails: (podcast: Podcast) -> Unit) {
     // TODO - Coil dependency was added as the image loader for the podcast image - feel free to use any other image loader
     val viewModel: PodcastListViewModel = viewModel()
     val best by viewModel.podcasts.collectAsState()
-
     LaunchedEffect(Unit) {
         viewModel.fetchPodcasts()
     }

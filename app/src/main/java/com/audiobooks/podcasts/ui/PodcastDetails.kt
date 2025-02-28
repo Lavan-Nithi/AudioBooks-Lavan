@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
@@ -51,9 +53,16 @@ fun PodcastDetailsScreen(podcast: Podcast, onBack: () -> Unit) {
         Text(text = podcast.publisher, color = Color.Gray, modifier = Modifier.padding(bottom = 8.dp), textAlign = TextAlign.Center)
         AsyncImage(model = podcast.image, contentDescription = podcast.title, modifier = Modifier.height(225.dp).clip(RoundedCornerShape(16.dp)))
         Button(onClick = {isFavourited = !isFavourited}, shape = RectangleShape, modifier = Modifier.padding(top = 12.dp).clip(
-            RoundedCornerShape(16.dp)), colors = ButtonColors(containerColor = Color(0xFFFF525D), contentColor = Color.White, disabledContentColor = Color.White, disabledContainerColor = Color.Red)
+            RoundedCornerShape(16.dp)), colors = ButtonColors(containerColor = if(isFavourited) Color.Gray else Color(0xFFFF525D), contentColor = if(isFavourited) Color.Black else Color.White, disabledContentColor = Color.White, disabledContainerColor = Color.Red)
         ){
             Text(if (isFavourited) "Favourited" else "Favourite")
+            if (isFavourited) {
+            Icon(
+                Icons.Filled.Done,
+                contentDescription = "checkmark",
+                modifier = Modifier.padding(start = 4.dp)
+            )
+            }
         }
         Text(text = podcast.description, fontSize = 14.sp, color = Color.DarkGray, textAlign = TextAlign.Center, modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp))
     }
