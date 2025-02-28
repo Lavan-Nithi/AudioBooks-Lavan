@@ -1,5 +1,6 @@
 package com.audiobooks.podcasts.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,15 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.audiobooks.podcasts.R
 import com.audiobooks.podcasts.model.Podcast
 import com.audiobooks.podcasts.ui.theme.PodcastsTheme
 
@@ -55,7 +59,9 @@ private fun PodcastListUI(
 ) {
     // TODO - Example UI layout - Modify to implement the requested UI
     Column {
-        Text(text = "Podcasts", fontWeight = FontWeight.Bold, fontSize = 30.sp, modifier = Modifier.padding(8.dp))
+        Image(painter = painterResource(R.drawable.audiobooks), contentDescription = "Audiobooks.com", Modifier.fillMaxWidth(), alignment = Alignment.Center)
+
+        Text(text = "Podcasts", fontWeight = FontWeight.Bold, fontSize = 30.sp, modifier = Modifier.padding(10.dp))
         LazyColumn {
            items(podcasts){ podcast ->
                 PodcastRow(podcast = podcast, onShowDetails = onShowDetails)
