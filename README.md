@@ -4,6 +4,15 @@ Please read the instructions below carefully before starting the coding challeng
 
 Once submitted, the mobile team will review your work and get back to you as soon as possible.
 
+# Demo ⭐️
+[Demo Video](https://drive.google.com/file/d/1EZh1U_qnY2ygY-YOU8dg723MlXHvtUQ7/view?usp=drive_link)
+
+# App Walk-Through 🚀
+[App Walk-Through Part 1](https://www.loom.com/share/7ea746e1bb594ee5870473c24889ec6f?sid=60032e46-5d69-47a0-835d-89459adf717d)
+<br />
+[App Walk-Through Part 2](https://www.loom.com/share/87799ebf261e46088af36677630b0ace?sid=292b859e-de46-4319-b3b1-b3e6166f93da)
+
+
 ## The Goal
 
 You will be building a simple two-screen podcasts app. A basic mockup is provided below:
